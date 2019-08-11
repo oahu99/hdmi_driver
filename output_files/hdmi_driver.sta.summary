@@ -1,0 +1,197 @@
+------------------------------------------------------------
+Timing Analyzer Summary
+------------------------------------------------------------
+
+Type  : Slow 1100mV 100C Model Setup 'clk_25~reg0'
+Slack : -3.488
+TNS   : -124.897
+
+Type  : Slow 1100mV 100C Model Setup 'clk_50k'
+Slack : -2.943
+TNS   : -60.881
+
+Type  : Slow 1100mV 100C Model Setup 'clk_50'
+Slack : -2.710
+TNS   : -2.710
+
+Type  : Slow 1100mV 100C Model Setup 'i2c_master_top:I2C_0|done'
+Slack : -2.400
+TNS   : -17.457
+
+Type  : Slow 1100mV 100C Model Hold 'i2c_master_top:I2C_0|done'
+Slack : 0.488
+TNS   : 0.000
+
+Type  : Slow 1100mV 100C Model Hold 'clk_50k'
+Slack : 0.535
+TNS   : 0.000
+
+Type  : Slow 1100mV 100C Model Hold 'clk_25~reg0'
+Slack : 0.580
+TNS   : 0.000
+
+Type  : Slow 1100mV 100C Model Hold 'clk_50'
+Slack : 0.799
+TNS   : 0.000
+
+Type  : Slow 1100mV 100C Model Minimum Pulse Width 'clk_25~reg0'
+Slack : -0.538
+TNS   : -37.667
+
+Type  : Slow 1100mV 100C Model Minimum Pulse Width 'clk_50k'
+Slack : -0.538
+TNS   : -24.857
+
+Type  : Slow 1100mV 100C Model Minimum Pulse Width 'i2c_master_top:I2C_0|done'
+Slack : -0.538
+TNS   : -6.699
+
+Type  : Slow 1100mV 100C Model Minimum Pulse Width 'clk_50'
+Slack : -0.538
+TNS   : -0.900
+
+Type  : Slow 1100mV -40C Model Setup 'clk_25~reg0'
+Slack : -3.498
+TNS   : -124.693
+
+Type  : Slow 1100mV -40C Model Setup 'clk_50k'
+Slack : -2.929
+TNS   : -60.722
+
+Type  : Slow 1100mV -40C Model Setup 'i2c_master_top:I2C_0|done'
+Slack : -2.552
+TNS   : -18.068
+
+Type  : Slow 1100mV -40C Model Setup 'clk_50'
+Slack : -2.540
+TNS   : -2.540
+
+Type  : Slow 1100mV -40C Model Hold 'i2c_master_top:I2C_0|done'
+Slack : 0.420
+TNS   : 0.000
+
+Type  : Slow 1100mV -40C Model Hold 'clk_25~reg0'
+Slack : 0.515
+TNS   : 0.000
+
+Type  : Slow 1100mV -40C Model Hold 'clk_50k'
+Slack : 0.589
+TNS   : 0.000
+
+Type  : Slow 1100mV -40C Model Hold 'clk_50'
+Slack : 0.766
+TNS   : 0.000
+
+Type  : Slow 1100mV -40C Model Minimum Pulse Width 'clk_25~reg0'
+Slack : -0.538
+TNS   : -36.927
+
+Type  : Slow 1100mV -40C Model Minimum Pulse Width 'clk_50k'
+Slack : -0.538
+TNS   : -24.414
+
+Type  : Slow 1100mV -40C Model Minimum Pulse Width 'i2c_master_top:I2C_0|done'
+Slack : -0.538
+TNS   : -6.569
+
+Type  : Slow 1100mV -40C Model Minimum Pulse Width 'clk_50'
+Slack : -0.538
+TNS   : -0.878
+
+Type  : Fast 1100mV 100C Model Setup 'clk_50'
+Slack : -1.889
+TNS   : -1.889
+
+Type  : Fast 1100mV 100C Model Setup 'clk_50k'
+Slack : -1.529
+TNS   : -24.001
+
+Type  : Fast 1100mV 100C Model Setup 'clk_25~reg0'
+Slack : -1.402
+TNS   : -49.187
+
+Type  : Fast 1100mV 100C Model Setup 'i2c_master_top:I2C_0|done'
+Slack : -0.793
+TNS   : -6.010
+
+Type  : Fast 1100mV 100C Model Hold 'i2c_master_top:I2C_0|done'
+Slack : -0.029
+TNS   : -0.076
+
+Type  : Fast 1100mV 100C Model Hold 'clk_50k'
+Slack : 0.166
+TNS   : 0.000
+
+Type  : Fast 1100mV 100C Model Hold 'clk_25~reg0'
+Slack : 0.210
+TNS   : 0.000
+
+Type  : Fast 1100mV 100C Model Hold 'clk_50'
+Slack : 0.713
+TNS   : 0.000
+
+Type  : Fast 1100mV 100C Model Minimum Pulse Width 'clk_50'
+Slack : -0.307
+TNS   : -0.307
+
+Type  : Fast 1100mV 100C Model Minimum Pulse Width 'clk_25~reg0'
+Slack : -0.011
+TNS   : -0.011
+
+Type  : Fast 1100mV 100C Model Minimum Pulse Width 'clk_50k'
+Slack : 0.057
+TNS   : 0.000
+
+Type  : Fast 1100mV 100C Model Minimum Pulse Width 'i2c_master_top:I2C_0|done'
+Slack : 0.065
+TNS   : 0.000
+
+Type  : Fast 1100mV -40C Model Setup 'clk_50'
+Slack : -1.418
+TNS   : -1.418
+
+Type  : Fast 1100mV -40C Model Setup 'clk_50k'
+Slack : -1.256
+TNS   : -18.465
+
+Type  : Fast 1100mV -40C Model Setup 'clk_25~reg0'
+Slack : -1.165
+TNS   : -40.039
+
+Type  : Fast 1100mV -40C Model Setup 'i2c_master_top:I2C_0|done'
+Slack : -0.673
+TNS   : -4.974
+
+Type  : Fast 1100mV -40C Model Hold 'i2c_master_top:I2C_0|done'
+Slack : -0.085
+TNS   : -0.472
+
+Type  : Fast 1100mV -40C Model Hold 'clk_25~reg0'
+Slack : 0.104
+TNS   : 0.000
+
+Type  : Fast 1100mV -40C Model Hold 'clk_50k'
+Slack : 0.143
+TNS   : 0.000
+
+Type  : Fast 1100mV -40C Model Hold 'clk_50'
+Slack : 0.378
+TNS   : 0.000
+
+Type  : Fast 1100mV -40C Model Minimum Pulse Width 'clk_50'
+Slack : -0.310
+TNS   : -0.310
+
+Type  : Fast 1100mV -40C Model Minimum Pulse Width 'clk_25~reg0'
+Slack : 0.045
+TNS   : 0.000
+
+Type  : Fast 1100mV -40C Model Minimum Pulse Width 'clk_50k'
+Slack : 0.089
+TNS   : 0.000
+
+Type  : Fast 1100mV -40C Model Minimum Pulse Width 'i2c_master_top:I2C_0|done'
+Slack : 0.089
+TNS   : 0.000
+
+------------------------------------------------------------

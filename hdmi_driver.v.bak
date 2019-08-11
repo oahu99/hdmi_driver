@@ -1,0 +1,32 @@
+module hdmi_driver (
+	input wire clk_25, reset,
+	output wire H_sync, V_sync,
+	output reg [9:0] CountX, CountY,
+	output wire [7:0] RED, GREEN, BLUE,
+	output wire Draw_enable
+);
+
+// blanking signals
+wire H_sync = (CountX>=656) && (CountX<752);
+wire V_sync = (CountY>=490) && (CountY<492);
+
+always @ (posedge clk_25) begin // counter loop
+	
+	if (reset) begin
+		CountX <= 0;
+		CountY <= 0;
+	end
+	else begin
+		CountX <= (CountX == 799) ? 0 : CountX + 1;
+		if (CountX == 799) CountY <= (CountY == 524) ? 0 : CountY + 1;
+	end
+end
+
+always @ * begin
+	if (CountX <= 640 && CountY <= 480)
+		Draw_enable = 1;
+	else
+		Draw_enable = 0;
+end
+
+endmodule
