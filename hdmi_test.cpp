@@ -14,9 +14,10 @@ int main(){
 
 	while (counter < 5000000){
 		tb->reset_al = (counter < 5) ? 0 : 1;
+		tb->HDMI_INT = (counter < 20) ? 0 : 1;
 
 		counter++;
-		tb->clk_25 = tb->clk_25 ? 0 : 1;
+		tb->clk_50 = tb->clk_50 ? 0 : 1;
 		tb->eval();
 		tfp->dump(counter);
 	}

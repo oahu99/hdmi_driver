@@ -34,7 +34,8 @@ localparam // states for FSM
 	DONE_2 = 10,
 	ACK_NACK_2 = 11,
 	ACK_NACK_3 = 12,
-	STOP_2 = 13;
+	STOP_2 = 13,
+	DELAY = 14;
 
 always @ (posedge clk_50k) begin
 
@@ -110,7 +111,8 @@ always @ (*) begin
 		IDLE : next_state = (start) ? START_1 : IDLE; // wait for start signal
 		START_1 : next_state = START_2;
 		START_2 : next_state = SEND_1;
-		SEND_1 : next_state = (counter == 0) ? ACK_NACK_1 : SEND_2; // if 8 bits have been sent, check for ACK
+		SEND_1 : next_state = (counter == 0) ? ACK_NACK_1 : DELAY; // if 8 bits have been sent, check for ACK
+		DELAY	: next_state = SEND_2;
 		SEND_2 : next_state = SEND_3;
 		SEND_3 : next_state = SEND_1;
 		ACK_NACK_1 : next_state = ACK_NACK_2; // pulse scl and wait for ACK/NACK

@@ -92,6 +92,34 @@
 					"strict" : false
 				},
 				{
+					"name" : "RED[0]",
+					"strict" : false
+				},
+				{
+					"name" : "RED[1]",
+					"strict" : false
+				},
+				{
+					"name" : "RED[2]",
+					"strict" : false
+				},
+				{
+					"name" : "RED[3]",
+					"strict" : false
+				},
+				{
+					"name" : "RED[4]",
+					"strict" : false
+				},
+				{
+					"name" : "RED[5]",
+					"strict" : false
+				},
+				{
+					"name" : "RED[6]",
+					"strict" : false
+				},
+				{
 					"name" : "GREEN[0]",
 					"strict" : false
 				},
@@ -160,11 +188,11 @@
 					"strict" : false
 				},
 				{
-					"name" : "sda",
+					"name" : "scl",
 					"strict" : false
 				},
 				{
-					"name" : "scl",
+					"name" : "sda",
 					"strict" : false
 				},
 				{
@@ -177,6 +205,10 @@
 				},
 				{
 					"name" : "clk_25",
+					"strict" : false
+				},
+				{
+					"name" : "mI2C_CTRL_CLK",
 					"strict" : false
 				},
 				{

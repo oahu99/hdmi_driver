@@ -1,1 +1,1 @@
-Info (10281): Verilog HDL Declaration information at i2c_master_top.v(14): object "fail" differs only in case from object "FAIL" in the same scope File: /home/john/code/quartus_work/hdmi_driver/i2c_master_top.v Line: 14
+Info (10281): Verilog HDL Declaration information at i2c_master_top.v(14): object "fail" differs only in case from object "FAIL" in the same scope File: /home/john/code/hdmi_driver/i2c_master_top.v Line: 14

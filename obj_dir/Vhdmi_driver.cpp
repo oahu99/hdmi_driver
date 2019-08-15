@@ -42,7 +42,7 @@ void Vhdmi_driver::eval() {
 #ifdef VL_DEBUG
     // Debug assertions
     _eval_debug_assertions();
-#endif // VL_DEBUG
+#endif  // VL_DEBUG
     // Initialize
     if (VL_UNLIKELY(!vlSymsp->__Vm_didInit)) _eval_initial_loop(vlSymsp);
     // Evaluate till stable
@@ -100,34 +100,10 @@ VL_INLINE_OPT void Vhdmi_driver::_sequent__TOP__1(Vhdmi_driver__Syms* __restrict
     // Begin mtask footprint  all: 
     VL_SIG8(__Vdly__hdmi_driver__DOT__clk_50k,0,0);
     VL_SIG16(__Vdly__hdmi_driver__DOT__clk_divide,9,0);
-    VL_SIG16(__Vdly__CountX,9,0);
     // Body
-    __Vdly__CountX = vlTOPp->CountX;
-    vlTOPp->__Vdly__hdmi_driver__DOT__byte_lut = vlTOPp->hdmi_driver__DOT__byte_lut;
     __Vdly__hdmi_driver__DOT__clk_divide = vlTOPp->hdmi_driver__DOT__clk_divide;
     __Vdly__hdmi_driver__DOT__clk_50k = vlTOPp->hdmi_driver__DOT__clk_50k;
-    // ALWAYS at hdmi_driver.v:61
-    vlTOPp->rst = (1U & (~ (IData)(vlTOPp->reset_al)));
-    // ALWAYS at hdmi_driver.v:80
-    if (vlTOPp->reset_al) {
-	__Vdly__CountX = (0x3ffU & ((0x31fU == (IData)(vlTOPp->CountX))
-				     ? 0U : ((IData)(1U) 
-					     + (IData)(vlTOPp->CountX))));
-	if ((0x31fU == (IData)(vlTOPp->CountX))) {
-	    vlTOPp->CountY = (0x3ffU & ((0x20cU == (IData)(vlTOPp->CountY))
-					 ? 0U : ((IData)(1U) 
-						 + (IData)(vlTOPp->CountY))));
-	}
-    } else {
-	__Vdly__CountX = 0U;
-	vlTOPp->CountY = 0U;
-    }
-    // ALWAYS at hdmi_driver.v:61
-    vlTOPp->__Vdly__hdmi_driver__DOT__byte_lut = (0xffU 
-						  & ((IData)(vlTOPp->reset_al)
-						      ? (IData)(vlTOPp->hdmi_driver__DOT__byte_lut_next)
-						      : 0U));
-    // ALWAYS at hdmi_driver.v:61
+    // ALWAYS at hdmi_driver.v:95
     if ((1U & (~ (IData)(vlTOPp->reset_al)))) {
 	__Vdly__hdmi_driver__DOT__clk_50k = 0U;
 	__Vdly__hdmi_driver__DOT__clk_divide = 0U;
@@ -140,18 +116,27 @@ VL_INLINE_OPT void Vhdmi_driver::_sequent__TOP__1(Vhdmi_driver__Syms* __restrict
 						& ((IData)(1U) 
 						   + (IData)(vlTOPp->hdmi_driver__DOT__clk_divide)));
     }
-    vlTOPp->CountX = __Vdly__CountX;
-    vlTOPp->hdmi_driver__DOT__clk_divide = __Vdly__hdmi_driver__DOT__clk_divide;
+    // ALWAYS at hdmi_driver.v:87
+    vlTOPp->clk_25 = (1U & ((IData)(vlTOPp->rst) ? 0U
+			     : (~ (IData)(vlTOPp->clk_25))));
+    // ALWAYS at hdmi_driver.v:55
+    if (vlTOPp->reset_al) {
+	if ((0x9c4U > (IData)(vlTOPp->hdmi_driver__DOT__mI2C_CLK_DIV))) {
+	    vlTOPp->hdmi_driver__DOT__mI2C_CLK_DIV 
+		= (0xffffU & ((IData)(1U) + (IData)(vlTOPp->hdmi_driver__DOT__mI2C_CLK_DIV)));
+	} else {
+	    vlTOPp->hdmi_driver__DOT__mI2C_CTRL_CLK 
+		= (1U & (~ (IData)(vlTOPp->hdmi_driver__DOT__mI2C_CTRL_CLK)));
+	    vlTOPp->hdmi_driver__DOT__mI2C_CLK_DIV = 0U;
+	}
+    } else {
+	vlTOPp->hdmi_driver__DOT__mI2C_CTRL_CLK = 0U;
+	vlTOPp->hdmi_driver__DOT__mI2C_CLK_DIV = 0U;
+    }
     vlTOPp->hdmi_driver__DOT__clk_50k = __Vdly__hdmi_driver__DOT__clk_50k;
-    vlTOPp->H_sync = ((0x290U <= (IData)(vlTOPp->CountX)) 
-		      & (0x2f0U > (IData)(vlTOPp->CountX)));
-    vlTOPp->GREEN = (0xffU & (IData)(vlTOPp->CountX));
-    vlTOPp->V_sync = ((0x1eaU <= (IData)(vlTOPp->CountY)) 
-		      & (0x1ecU > (IData)(vlTOPp->CountY)));
-    vlTOPp->BLUE = (0xffU & (IData)(vlTOPp->CountY));
-    // ALWAYS at hdmi_driver.v:92
-    vlTOPp->Draw_enable = ((0x280U >= (IData)(vlTOPp->CountX)) 
-			   & (0x1e0U >= (IData)(vlTOPp->CountY)));
+    vlTOPp->hdmi_driver__DOT__clk_divide = __Vdly__hdmi_driver__DOT__clk_divide;
+    // ALWAYS at hdmi_driver.v:95
+    vlTOPp->rst = (1U & (~ (IData)(vlTOPp->reset_al)));
 }
 
 void Vhdmi_driver::_settle__TOP__2(Vhdmi_driver__Syms* __restrict vlSymsp) {
@@ -164,19 +149,22 @@ void Vhdmi_driver::_settle__TOP__2(Vhdmi_driver__Syms* __restrict vlSymsp) {
 		      & (0x1ecU > (IData)(vlTOPp->CountY)));
     vlTOPp->GREEN = (0xffU & (IData)(vlTOPp->CountX));
     vlTOPp->BLUE = (0xffU & (IData)(vlTOPp->CountY));
-    // ALWAYS at hdmi_driver.v:92
+    vlTOPp->RED = (0x7fU & ((IData)(vlTOPp->CountY) 
+			    >> 1U));
+    vlTOPp->sda = vlTOPp->hdmi_driver__DOT__sda__out__out0;
+    // ALWAYS at hdmi_driver.v:129
     vlTOPp->Draw_enable = ((0x280U >= (IData)(vlTOPp->CountX)) 
 			   & (0x1e0U >= (IData)(vlTOPp->CountY)));
-    // ALWAYS at i2c_master_top.v:105
+    // ALWAYS at i2c_master_top.v:106
     vlTOPp->hdmi_driver__DOT__I2C_0__DOT__next_state 
 	= (0x1fU & (((((((((0U == (IData)(vlTOPp->hdmi_driver__DOT__I2C_0__DOT__state)) 
 			   | (4U == (IData)(vlTOPp->hdmi_driver__DOT__I2C_0__DOT__state))) 
 			  | (5U == (IData)(vlTOPp->hdmi_driver__DOT__I2C_0__DOT__state))) 
 			 | (1U == (IData)(vlTOPp->hdmi_driver__DOT__I2C_0__DOT__state))) 
-			| (7U == (IData)(vlTOPp->hdmi_driver__DOT__I2C_0__DOT__state))) 
-		       | (8U == (IData)(vlTOPp->hdmi_driver__DOT__I2C_0__DOT__state))) 
-		      | (2U == (IData)(vlTOPp->hdmi_driver__DOT__I2C_0__DOT__state))) 
-		     | (0xbU == (IData)(vlTOPp->hdmi_driver__DOT__I2C_0__DOT__state)))
+			| (0xeU == (IData)(vlTOPp->hdmi_driver__DOT__I2C_0__DOT__state))) 
+		       | (7U == (IData)(vlTOPp->hdmi_driver__DOT__I2C_0__DOT__state))) 
+		      | (8U == (IData)(vlTOPp->hdmi_driver__DOT__I2C_0__DOT__state))) 
+		     | (2U == (IData)(vlTOPp->hdmi_driver__DOT__I2C_0__DOT__state)))
 		     ? ((0U == (IData)(vlTOPp->hdmi_driver__DOT__I2C_0__DOT__state))
 			 ? ((1U & ((0x19U <= (IData)(vlTOPp->hdmi_driver__DOT__byte_lut))
 				    ? 0U : 1U)) ? 4U
@@ -191,46 +179,50 @@ void Vhdmi_driver::_settle__TOP__2(Vhdmi_driver__Syms* __restrict vlSymsp) {
 						   ((0U 
 						     == (IData)(vlTOPp->hdmi_driver__DOT__I2C_0__DOT__counter))
 						     ? 2U
-						     : 7U)
+						     : 0xeU)
 						    : 
-						   ((7U 
+						   ((0xeU 
 						     == (IData)(vlTOPp->hdmi_driver__DOT__I2C_0__DOT__state))
-						     ? 8U
+						     ? 7U
 						     : 
-						    ((8U 
+						    ((7U 
 						      == (IData)(vlTOPp->hdmi_driver__DOT__I2C_0__DOT__state))
-						      ? 1U
+						      ? 8U
 						      : 
-						     ((2U 
+						     ((8U 
 						       == (IData)(vlTOPp->hdmi_driver__DOT__I2C_0__DOT__state))
-						       ? 0xbU
-						       : 0xcU)))))))
-		     : ((0xcU == (IData)(vlTOPp->hdmi_driver__DOT__I2C_0__DOT__state))
-			 ? ((IData)(vlTOPp->hdmi_driver__DOT__I2C_0__DOT__ack)
-			     ? 9U : 3U) : ((9U == (IData)(vlTOPp->hdmi_driver__DOT__I2C_0__DOT__state))
-					    ? 0xaU : 
-					   ((0xaU == (IData)(vlTOPp->hdmi_driver__DOT__I2C_0__DOT__state))
-					     ? ((0U 
-						 == (IData)(vlTOPp->hdmi_driver__DOT__I2C_0__DOT__byte_num_local))
-						 ? 6U
-						 : 1U)
-					     : ((6U 
-						 == (IData)(vlTOPp->hdmi_driver__DOT__I2C_0__DOT__state))
-						 ? 0xdU
-						 : 
-						((0xdU 
-						  == (IData)(vlTOPp->hdmi_driver__DOT__I2C_0__DOT__state))
-						  ? 0U
-						  : 
-						 ((3U 
-						   == (IData)(vlTOPp->hdmi_driver__DOT__I2C_0__DOT__state))
-						   ? 3U
-						   : 0U))))))));
+						       ? 1U
+						       : 0xbU)))))))
+		     : ((0xbU == (IData)(vlTOPp->hdmi_driver__DOT__I2C_0__DOT__state))
+			 ? 0xcU : ((0xcU == (IData)(vlTOPp->hdmi_driver__DOT__I2C_0__DOT__state))
+				    ? ((IData)(vlTOPp->hdmi_driver__DOT__I2C_0__DOT__ack)
+				        ? 9U : 3U) : 
+				   ((9U == (IData)(vlTOPp->hdmi_driver__DOT__I2C_0__DOT__state))
+				     ? 0xaU : ((0xaU 
+						== (IData)(vlTOPp->hdmi_driver__DOT__I2C_0__DOT__state))
+					        ? (
+						   (0U 
+						    == (IData)(vlTOPp->hdmi_driver__DOT__I2C_0__DOT__byte_num_local))
+						    ? 6U
+						    : 1U)
+					        : (
+						   (6U 
+						    == (IData)(vlTOPp->hdmi_driver__DOT__I2C_0__DOT__state))
+						    ? 0xdU
+						    : 
+						   ((0xdU 
+						     == (IData)(vlTOPp->hdmi_driver__DOT__I2C_0__DOT__state))
+						     ? 0U
+						     : 
+						    ((3U 
+						      == (IData)(vlTOPp->hdmi_driver__DOT__I2C_0__DOT__state))
+						      ? 3U
+						      : 0U)))))))));
     // ALWAYS at reg_lut.v:7
     vlTOPp->__Vtableidx1 = vlTOPp->hdmi_driver__DOT__byte_lut;
     vlTOPp->hdmi_driver__DOT__data = vlTOPp->__Vtable1_hdmi_driver__DOT__data
 	[vlTOPp->__Vtableidx1];
-    // ALWAYS at i2c_master_top.v:105
+    // ALWAYS at i2c_master_top.v:106
     vlTOPp->hdmi_driver__DOT__I2C_0__DOT__message = 
 	((IData)(vlTOPp->hdmi_driver__DOT__I2C_0__DOT__address)
 	  ? 0x72U : (IData)(vlTOPp->hdmi_driver__DOT__data));
@@ -241,19 +233,55 @@ VL_INLINE_OPT void Vhdmi_driver::_sequent__TOP__3(Vhdmi_driver__Syms* __restrict
     Vhdmi_driver* __restrict vlTOPp VL_ATTR_UNUSED = vlSymsp->TOPp;
     // Variables
     // Begin mtask footprint  all: 
+    VL_SIG16(__Vdly__CountX,9,0);
+    // Body
+    __Vdly__CountX = vlTOPp->CountX;
+    // ALWAYS at hdmi_driver.v:117
+    if (vlTOPp->reset_al) {
+	__Vdly__CountX = (0x3ffU & ((0x31fU == (IData)(vlTOPp->CountX))
+				     ? 0U : ((IData)(1U) 
+					     + (IData)(vlTOPp->CountX))));
+	if ((0x31fU == (IData)(vlTOPp->CountX))) {
+	    vlTOPp->CountY = (0x3ffU & ((0x20cU == (IData)(vlTOPp->CountY))
+					 ? 0U : ((IData)(1U) 
+						 + (IData)(vlTOPp->CountY))));
+	}
+    } else {
+	__Vdly__CountX = 0U;
+	vlTOPp->CountY = 0U;
+    }
+    vlTOPp->CountX = __Vdly__CountX;
+    vlTOPp->H_sync = ((0x290U <= (IData)(vlTOPp->CountX)) 
+		      & (0x2f0U > (IData)(vlTOPp->CountX)));
+    vlTOPp->GREEN = (0xffU & (IData)(vlTOPp->CountX));
+    vlTOPp->V_sync = ((0x1eaU <= (IData)(vlTOPp->CountY)) 
+		      & (0x1ecU > (IData)(vlTOPp->CountY)));
+    vlTOPp->BLUE = (0xffU & (IData)(vlTOPp->CountY));
+    vlTOPp->RED = (0x7fU & ((IData)(vlTOPp->CountY) 
+			    >> 1U));
+    // ALWAYS at hdmi_driver.v:129
+    vlTOPp->Draw_enable = ((0x280U >= (IData)(vlTOPp->CountX)) 
+			   & (0x1e0U >= (IData)(vlTOPp->CountY)));
+}
+
+VL_INLINE_OPT void Vhdmi_driver::_sequent__TOP__4(Vhdmi_driver__Syms* __restrict vlSymsp) {
+    VL_DEBUG_IF(VL_DBG_MSGF("+    Vhdmi_driver::_sequent__TOP__4\n"); );
+    Vhdmi_driver* __restrict vlTOPp VL_ATTR_UNUSED = vlSymsp->TOPp;
+    // Variables
+    // Begin mtask footprint  all: 
     VL_SIG8(__Vdly__hdmi_driver__DOT__I2C_0__DOT__address,0,0);
     VL_SIG8(__Vdly__hdmi_driver__DOT__I2C_0__DOT__counter,3,0);
-    VL_SIG8(__Vdly__sda,0,0);
+    VL_SIG8(__Vdly__hdmi_driver__DOT__sda__out__out0,0,0);
     VL_SIG8(__Vdly__hdmi_driver__DOT__I2C_0__DOT__byte_num_local,2,0);
     VL_SIG8(__Vdly__hdmi_driver__DOT__done,0,0);
     // Body
-    __Vdly__sda = vlTOPp->sda;
+    __Vdly__hdmi_driver__DOT__sda__out__out0 = vlTOPp->hdmi_driver__DOT__sda__out__out0;
     __Vdly__hdmi_driver__DOT__I2C_0__DOT__address = vlTOPp->hdmi_driver__DOT__I2C_0__DOT__address;
     __Vdly__hdmi_driver__DOT__I2C_0__DOT__byte_num_local 
 	= vlTOPp->hdmi_driver__DOT__I2C_0__DOT__byte_num_local;
     __Vdly__hdmi_driver__DOT__I2C_0__DOT__counter = vlTOPp->hdmi_driver__DOT__I2C_0__DOT__counter;
     __Vdly__hdmi_driver__DOT__done = vlTOPp->hdmi_driver__DOT__done;
-    // ALWAYS at i2c_master_top.v:39
+    // ALWAYS at i2c_master_top.v:40
     if (((((((((0U == (IData)(vlTOPp->hdmi_driver__DOT__I2C_0__DOT__state)) 
 	       | (4U == (IData)(vlTOPp->hdmi_driver__DOT__I2C_0__DOT__state))) 
 	      | (5U == (IData)(vlTOPp->hdmi_driver__DOT__I2C_0__DOT__state))) 
@@ -266,26 +294,25 @@ VL_INLINE_OPT void Vhdmi_driver::_sequent__TOP__3(Vhdmi_driver__Syms* __restrict
 	    __Vdly__hdmi_driver__DOT__I2C_0__DOT__address = 1U;
 	    __Vdly__hdmi_driver__DOT__I2C_0__DOT__counter = 8U;
 	    vlTOPp->scl = 1U;
-	    __Vdly__sda = 1U;
+	    __Vdly__hdmi_driver__DOT__sda__out__out0 = 1U;
 	    __Vdly__hdmi_driver__DOT__I2C_0__DOT__byte_num_local = 2U;
 	    __Vdly__hdmi_driver__DOT__done = 0U;
 	} else {
 	    if ((4U == (IData)(vlTOPp->hdmi_driver__DOT__I2C_0__DOT__state))) {
 		vlTOPp->fail = 0U;
-		__Vdly__sda = 0U;
+		__Vdly__hdmi_driver__DOT__sda__out__out0 = 0U;
 	    } else {
 		if ((5U == (IData)(vlTOPp->hdmi_driver__DOT__I2C_0__DOT__state))) {
 		    vlTOPp->scl = 0U;
 		} else {
 		    if ((1U == (IData)(vlTOPp->hdmi_driver__DOT__I2C_0__DOT__state))) {
-			__Vdly__sda = (1U & ((0U != (IData)(vlTOPp->hdmi_driver__DOT__I2C_0__DOT__counter))
-					      ? (1U 
-						 & ((IData)(vlTOPp->hdmi_driver__DOT__I2C_0__DOT__message) 
-						    >> 
-						    (7U 
-						     & ((IData)(vlTOPp->hdmi_driver__DOT__I2C_0__DOT__counter) 
-							- (IData)(1U)))))
-					      : 0U));
+			__Vdly__hdmi_driver__DOT__sda__out__out0 
+			    = (1U & ((0U != (IData)(vlTOPp->hdmi_driver__DOT__I2C_0__DOT__counter))
+				      ? (1U & ((IData)(vlTOPp->hdmi_driver__DOT__I2C_0__DOT__message) 
+					       >> (7U 
+						   & ((IData)(vlTOPp->hdmi_driver__DOT__I2C_0__DOT__counter) 
+						      - (IData)(1U)))))
+				      : 0U));
 		    } else {
 			if ((7U == (IData)(vlTOPp->hdmi_driver__DOT__I2C_0__DOT__state))) {
 			    __Vdly__hdmi_driver__DOT__I2C_0__DOT__counter 
@@ -300,7 +327,7 @@ VL_INLINE_OPT void Vhdmi_driver::_sequent__TOP__3(Vhdmi_driver__Syms* __restrict
 				    vlTOPp->scl = 1U;
 				} else {
 				    vlTOPp->hdmi_driver__DOT__I2C_0__DOT__ack 
-					= (1U & (~ (IData)(vlTOPp->sda)));
+					= (1U & (~ (IData)(vlTOPp->hdmi_driver__DOT__sda__out__out0)));
 				}
 			    }
 			}
@@ -316,7 +343,7 @@ VL_INLINE_OPT void Vhdmi_driver::_sequent__TOP__3(Vhdmi_driver__Syms* __restrict
 		vlTOPp->scl = 1U;
 	    } else {
 		if ((0xdU == (IData)(vlTOPp->hdmi_driver__DOT__I2C_0__DOT__state))) {
-		    __Vdly__sda = 1U;
+		    __Vdly__hdmi_driver__DOT__sda__out__out0 = 1U;
 		} else {
 		    if ((9U == (IData)(vlTOPp->hdmi_driver__DOT__I2C_0__DOT__state))) {
 			__Vdly__hdmi_driver__DOT__done 
@@ -344,53 +371,68 @@ VL_INLINE_OPT void Vhdmi_driver::_sequent__TOP__3(Vhdmi_driver__Syms* __restrict
 	    }
 	}
     }
-    vlTOPp->sda = __Vdly__sda;
     vlTOPp->hdmi_driver__DOT__I2C_0__DOT__address = __Vdly__hdmi_driver__DOT__I2C_0__DOT__address;
+    vlTOPp->hdmi_driver__DOT__sda__out__out0 = __Vdly__hdmi_driver__DOT__sda__out__out0;
     vlTOPp->hdmi_driver__DOT__I2C_0__DOT__counter = __Vdly__hdmi_driver__DOT__I2C_0__DOT__counter;
     vlTOPp->hdmi_driver__DOT__I2C_0__DOT__byte_num_local 
 	= __Vdly__hdmi_driver__DOT__I2C_0__DOT__byte_num_local;
     vlTOPp->hdmi_driver__DOT__done = __Vdly__hdmi_driver__DOT__done;
-    // ALWAYS at i2c_master_top.v:39
+    vlTOPp->sda = vlTOPp->hdmi_driver__DOT__sda__out__out0;
+    // ALWAYS at i2c_master_top.v:40
     vlTOPp->hdmi_driver__DOT__I2C_0__DOT__state = ((IData)(vlTOPp->reset_al)
 						    ? (IData)(vlTOPp->hdmi_driver__DOT__I2C_0__DOT__next_state)
 						    : 0U);
-}
-
-VL_INLINE_OPT void Vhdmi_driver::_sequent__TOP__4(Vhdmi_driver__Syms* __restrict vlSymsp) {
-    VL_DEBUG_IF(VL_DBG_MSGF("+    Vhdmi_driver::_sequent__TOP__4\n"); );
-    Vhdmi_driver* __restrict vlTOPp VL_ATTR_UNUSED = vlSymsp->TOPp;
-    // Body
-    // ALWAYS at hdmi_driver.v:57
-    vlTOPp->hdmi_driver__DOT__byte_lut_next = (0xffU 
-					       & ((IData)(1U) 
-						  + (IData)(vlTOPp->hdmi_driver__DOT__byte_lut)));
 }
 
 VL_INLINE_OPT void Vhdmi_driver::_sequent__TOP__5(Vhdmi_driver__Syms* __restrict vlSymsp) {
     VL_DEBUG_IF(VL_DBG_MSGF("+    Vhdmi_driver::_sequent__TOP__5\n"); );
     Vhdmi_driver* __restrict vlTOPp VL_ATTR_UNUSED = vlSymsp->TOPp;
     // Body
-    vlTOPp->hdmi_driver__DOT__byte_lut = vlTOPp->__Vdly__hdmi_driver__DOT__byte_lut;
+    vlTOPp->__Vdly__hdmi_driver__DOT__byte_lut_next 
+	= vlTOPp->hdmi_driver__DOT__byte_lut_next;
+    // ALWAYS at hdmi_driver.v:91
+    vlTOPp->__Vdly__hdmi_driver__DOT__byte_lut_next 
+	= (0xffU & ((IData)(1U) + (IData)(vlTOPp->hdmi_driver__DOT__byte_lut)));
+}
+
+VL_INLINE_OPT void Vhdmi_driver::_sequent__TOP__6(Vhdmi_driver__Syms* __restrict vlSymsp) {
+    VL_DEBUG_IF(VL_DBG_MSGF("+    Vhdmi_driver::_sequent__TOP__6\n"); );
+    Vhdmi_driver* __restrict vlTOPp VL_ATTR_UNUSED = vlSymsp->TOPp;
+    // Body
+    // ALWAYS at hdmi_driver.v:95
+    vlTOPp->hdmi_driver__DOT__byte_lut = (0xffU & ((IData)(vlTOPp->HDMI_INT)
+						    ? 
+						   ((IData)(vlTOPp->reset_al)
+						     ? (IData)(vlTOPp->hdmi_driver__DOT__byte_lut_next)
+						     : 0U)
+						    : 0U));
     // ALWAYS at reg_lut.v:7
     vlTOPp->__Vtableidx1 = vlTOPp->hdmi_driver__DOT__byte_lut;
     vlTOPp->hdmi_driver__DOT__data = vlTOPp->__Vtable1_hdmi_driver__DOT__data
 	[vlTOPp->__Vtableidx1];
 }
 
-VL_INLINE_OPT void Vhdmi_driver::_multiclk__TOP__6(Vhdmi_driver__Syms* __restrict vlSymsp) {
-    VL_DEBUG_IF(VL_DBG_MSGF("+    Vhdmi_driver::_multiclk__TOP__6\n"); );
+VL_INLINE_OPT void Vhdmi_driver::_sequent__TOP__7(Vhdmi_driver__Syms* __restrict vlSymsp) {
+    VL_DEBUG_IF(VL_DBG_MSGF("+    Vhdmi_driver::_sequent__TOP__7\n"); );
     Vhdmi_driver* __restrict vlTOPp VL_ATTR_UNUSED = vlSymsp->TOPp;
     // Body
-    // ALWAYS at i2c_master_top.v:105
+    vlTOPp->hdmi_driver__DOT__byte_lut_next = vlTOPp->__Vdly__hdmi_driver__DOT__byte_lut_next;
+}
+
+VL_INLINE_OPT void Vhdmi_driver::_multiclk__TOP__8(Vhdmi_driver__Syms* __restrict vlSymsp) {
+    VL_DEBUG_IF(VL_DBG_MSGF("+    Vhdmi_driver::_multiclk__TOP__8\n"); );
+    Vhdmi_driver* __restrict vlTOPp VL_ATTR_UNUSED = vlSymsp->TOPp;
+    // Body
+    // ALWAYS at i2c_master_top.v:106
     vlTOPp->hdmi_driver__DOT__I2C_0__DOT__next_state 
 	= (0x1fU & (((((((((0U == (IData)(vlTOPp->hdmi_driver__DOT__I2C_0__DOT__state)) 
 			   | (4U == (IData)(vlTOPp->hdmi_driver__DOT__I2C_0__DOT__state))) 
 			  | (5U == (IData)(vlTOPp->hdmi_driver__DOT__I2C_0__DOT__state))) 
 			 | (1U == (IData)(vlTOPp->hdmi_driver__DOT__I2C_0__DOT__state))) 
-			| (7U == (IData)(vlTOPp->hdmi_driver__DOT__I2C_0__DOT__state))) 
-		       | (8U == (IData)(vlTOPp->hdmi_driver__DOT__I2C_0__DOT__state))) 
-		      | (2U == (IData)(vlTOPp->hdmi_driver__DOT__I2C_0__DOT__state))) 
-		     | (0xbU == (IData)(vlTOPp->hdmi_driver__DOT__I2C_0__DOT__state)))
+			| (0xeU == (IData)(vlTOPp->hdmi_driver__DOT__I2C_0__DOT__state))) 
+		       | (7U == (IData)(vlTOPp->hdmi_driver__DOT__I2C_0__DOT__state))) 
+		      | (8U == (IData)(vlTOPp->hdmi_driver__DOT__I2C_0__DOT__state))) 
+		     | (2U == (IData)(vlTOPp->hdmi_driver__DOT__I2C_0__DOT__state)))
 		     ? ((0U == (IData)(vlTOPp->hdmi_driver__DOT__I2C_0__DOT__state))
 			 ? ((1U & ((0x19U <= (IData)(vlTOPp->hdmi_driver__DOT__byte_lut))
 				    ? 0U : 1U)) ? 4U
@@ -405,42 +447,46 @@ VL_INLINE_OPT void Vhdmi_driver::_multiclk__TOP__6(Vhdmi_driver__Syms* __restric
 						   ((0U 
 						     == (IData)(vlTOPp->hdmi_driver__DOT__I2C_0__DOT__counter))
 						     ? 2U
-						     : 7U)
+						     : 0xeU)
 						    : 
-						   ((7U 
+						   ((0xeU 
 						     == (IData)(vlTOPp->hdmi_driver__DOT__I2C_0__DOT__state))
-						     ? 8U
+						     ? 7U
 						     : 
-						    ((8U 
+						    ((7U 
 						      == (IData)(vlTOPp->hdmi_driver__DOT__I2C_0__DOT__state))
-						      ? 1U
+						      ? 8U
 						      : 
-						     ((2U 
+						     ((8U 
 						       == (IData)(vlTOPp->hdmi_driver__DOT__I2C_0__DOT__state))
-						       ? 0xbU
-						       : 0xcU)))))))
-		     : ((0xcU == (IData)(vlTOPp->hdmi_driver__DOT__I2C_0__DOT__state))
-			 ? ((IData)(vlTOPp->hdmi_driver__DOT__I2C_0__DOT__ack)
-			     ? 9U : 3U) : ((9U == (IData)(vlTOPp->hdmi_driver__DOT__I2C_0__DOT__state))
-					    ? 0xaU : 
-					   ((0xaU == (IData)(vlTOPp->hdmi_driver__DOT__I2C_0__DOT__state))
-					     ? ((0U 
-						 == (IData)(vlTOPp->hdmi_driver__DOT__I2C_0__DOT__byte_num_local))
-						 ? 6U
-						 : 1U)
-					     : ((6U 
-						 == (IData)(vlTOPp->hdmi_driver__DOT__I2C_0__DOT__state))
-						 ? 0xdU
-						 : 
-						((0xdU 
-						  == (IData)(vlTOPp->hdmi_driver__DOT__I2C_0__DOT__state))
-						  ? 0U
-						  : 
-						 ((3U 
-						   == (IData)(vlTOPp->hdmi_driver__DOT__I2C_0__DOT__state))
-						   ? 3U
-						   : 0U))))))));
-    // ALWAYS at i2c_master_top.v:105
+						       ? 1U
+						       : 0xbU)))))))
+		     : ((0xbU == (IData)(vlTOPp->hdmi_driver__DOT__I2C_0__DOT__state))
+			 ? 0xcU : ((0xcU == (IData)(vlTOPp->hdmi_driver__DOT__I2C_0__DOT__state))
+				    ? ((IData)(vlTOPp->hdmi_driver__DOT__I2C_0__DOT__ack)
+				        ? 9U : 3U) : 
+				   ((9U == (IData)(vlTOPp->hdmi_driver__DOT__I2C_0__DOT__state))
+				     ? 0xaU : ((0xaU 
+						== (IData)(vlTOPp->hdmi_driver__DOT__I2C_0__DOT__state))
+					        ? (
+						   (0U 
+						    == (IData)(vlTOPp->hdmi_driver__DOT__I2C_0__DOT__byte_num_local))
+						    ? 6U
+						    : 1U)
+					        : (
+						   (6U 
+						    == (IData)(vlTOPp->hdmi_driver__DOT__I2C_0__DOT__state))
+						    ? 0xdU
+						    : 
+						   ((0xdU 
+						     == (IData)(vlTOPp->hdmi_driver__DOT__I2C_0__DOT__state))
+						     ? 0U
+						     : 
+						    ((3U 
+						      == (IData)(vlTOPp->hdmi_driver__DOT__I2C_0__DOT__state))
+						      ? 3U
+						      : 0U)))))))));
+    // ALWAYS at i2c_master_top.v:106
     vlTOPp->hdmi_driver__DOT__I2C_0__DOT__message = 
 	((IData)(vlTOPp->hdmi_driver__DOT__I2C_0__DOT__address)
 	  ? 0x72U : (IData)(vlTOPp->hdmi_driver__DOT__data));
@@ -450,38 +496,49 @@ void Vhdmi_driver::_eval(Vhdmi_driver__Syms* __restrict vlSymsp) {
     VL_DEBUG_IF(VL_DBG_MSGF("+    Vhdmi_driver::_eval\n"); );
     Vhdmi_driver* __restrict vlTOPp VL_ATTR_UNUSED = vlSymsp->TOPp;
     // Body
-    if (((IData)(vlTOPp->clk_25) & (~ (IData)(vlTOPp->__Vclklast__TOP__clk_25)))) {
+    if (((IData)(vlTOPp->clk_50) & (~ (IData)(vlTOPp->__Vclklast__TOP__clk_50)))) {
 	vlTOPp->_sequent__TOP__1(vlSymsp);
 	vlTOPp->__Vm_traceActivity = (2U | vlTOPp->__Vm_traceActivity);
     }
-    if (((IData)(vlTOPp->__VinpClk__TOP__hdmi_driver__DOT__clk_50k) 
-	 & (~ (IData)(vlTOPp->__Vclklast__TOP____VinpClk__TOP__hdmi_driver__DOT__clk_50k)))) {
+    if (((IData)(vlTOPp->__VinpClk__TOP__clk_25) & 
+	 (~ (IData)(vlTOPp->__Vclklast__TOP____VinpClk__TOP__clk_25)))) {
 	vlTOPp->_sequent__TOP__3(vlSymsp);
+    }
+    if (((IData)(vlTOPp->__VinpClk__TOP__hdmi_driver__DOT__mI2C_CTRL_CLK) 
+	 & (~ (IData)(vlTOPp->__Vclklast__TOP____VinpClk__TOP__hdmi_driver__DOT__mI2C_CTRL_CLK)))) {
+	vlTOPp->_sequent__TOP__4(vlSymsp);
 	vlTOPp->__Vm_traceActivity = (4U | vlTOPp->__Vm_traceActivity);
     }
     if (((IData)(vlTOPp->__VinpClk__TOP__hdmi_driver__DOT__done) 
 	 & (~ (IData)(vlTOPp->__Vclklast__TOP____VinpClk__TOP__hdmi_driver__DOT__done)))) {
-	vlTOPp->_sequent__TOP__4(vlSymsp);
+	vlTOPp->_sequent__TOP__5(vlSymsp);
+    }
+    if (((IData)(vlTOPp->clk_50) & (~ (IData)(vlTOPp->__Vclklast__TOP__clk_50)))) {
+	vlTOPp->_sequent__TOP__6(vlSymsp);
 	vlTOPp->__Vm_traceActivity = (8U | vlTOPp->__Vm_traceActivity);
     }
-    if (((IData)(vlTOPp->clk_25) & (~ (IData)(vlTOPp->__Vclklast__TOP__clk_25)))) {
-	vlTOPp->_sequent__TOP__5(vlSymsp);
+    if (((IData)(vlTOPp->__VinpClk__TOP__hdmi_driver__DOT__done) 
+	 & (~ (IData)(vlTOPp->__Vclklast__TOP____VinpClk__TOP__hdmi_driver__DOT__done)))) {
+	vlTOPp->_sequent__TOP__7(vlSymsp);
 	vlTOPp->__Vm_traceActivity = (0x10U | vlTOPp->__Vm_traceActivity);
     }
-    if ((((IData)(vlTOPp->clk_25) & (~ (IData)(vlTOPp->__Vclklast__TOP__clk_25))) 
-	 | ((IData)(vlTOPp->__VinpClk__TOP__hdmi_driver__DOT__clk_50k) 
-	    & (~ (IData)(vlTOPp->__Vclklast__TOP____VinpClk__TOP__hdmi_driver__DOT__clk_50k))))) {
-	vlTOPp->_multiclk__TOP__6(vlSymsp);
+    if ((((IData)(vlTOPp->clk_50) & (~ (IData)(vlTOPp->__Vclklast__TOP__clk_50))) 
+	 | ((IData)(vlTOPp->__VinpClk__TOP__hdmi_driver__DOT__mI2C_CTRL_CLK) 
+	    & (~ (IData)(vlTOPp->__Vclklast__TOP____VinpClk__TOP__hdmi_driver__DOT__mI2C_CTRL_CLK))))) {
+	vlTOPp->_multiclk__TOP__8(vlSymsp);
 	vlTOPp->__Vm_traceActivity = (0x20U | vlTOPp->__Vm_traceActivity);
     }
     // Final
-    vlTOPp->__Vclklast__TOP__clk_25 = vlTOPp->clk_25;
-    vlTOPp->__Vclklast__TOP____VinpClk__TOP__hdmi_driver__DOT__clk_50k 
-	= vlTOPp->__VinpClk__TOP__hdmi_driver__DOT__clk_50k;
+    vlTOPp->__Vclklast__TOP__clk_50 = vlTOPp->clk_50;
+    vlTOPp->__Vclklast__TOP____VinpClk__TOP__clk_25 
+	= vlTOPp->__VinpClk__TOP__clk_25;
+    vlTOPp->__Vclklast__TOP____VinpClk__TOP__hdmi_driver__DOT__mI2C_CTRL_CLK 
+	= vlTOPp->__VinpClk__TOP__hdmi_driver__DOT__mI2C_CTRL_CLK;
     vlTOPp->__Vclklast__TOP____VinpClk__TOP__hdmi_driver__DOT__done 
 	= vlTOPp->__VinpClk__TOP__hdmi_driver__DOT__done;
-    vlTOPp->__VinpClk__TOP__hdmi_driver__DOT__clk_50k 
-	= vlTOPp->hdmi_driver__DOT__clk_50k;
+    vlTOPp->__VinpClk__TOP__clk_25 = vlTOPp->clk_25;
+    vlTOPp->__VinpClk__TOP__hdmi_driver__DOT__mI2C_CTRL_CLK 
+	= vlTOPp->hdmi_driver__DOT__mI2C_CTRL_CLK;
     vlTOPp->__VinpClk__TOP__hdmi_driver__DOT__done 
 	= vlTOPp->hdmi_driver__DOT__done;
 }
@@ -490,9 +547,11 @@ void Vhdmi_driver::_eval_initial(Vhdmi_driver__Syms* __restrict vlSymsp) {
     VL_DEBUG_IF(VL_DBG_MSGF("+    Vhdmi_driver::_eval_initial\n"); );
     Vhdmi_driver* __restrict vlTOPp VL_ATTR_UNUSED = vlSymsp->TOPp;
     // Body
-    vlTOPp->__Vclklast__TOP__clk_25 = vlTOPp->clk_25;
-    vlTOPp->__Vclklast__TOP____VinpClk__TOP__hdmi_driver__DOT__clk_50k 
-	= vlTOPp->__VinpClk__TOP__hdmi_driver__DOT__clk_50k;
+    vlTOPp->__Vclklast__TOP__clk_50 = vlTOPp->clk_50;
+    vlTOPp->__Vclklast__TOP____VinpClk__TOP__clk_25 
+	= vlTOPp->__VinpClk__TOP__clk_25;
+    vlTOPp->__Vclklast__TOP____VinpClk__TOP__hdmi_driver__DOT__mI2C_CTRL_CLK 
+	= vlTOPp->__VinpClk__TOP__hdmi_driver__DOT__mI2C_CTRL_CLK;
     vlTOPp->__Vclklast__TOP____VinpClk__TOP__hdmi_driver__DOT__done 
 	= vlTOPp->__VinpClk__TOP__hdmi_driver__DOT__done;
 }
@@ -518,15 +577,18 @@ VL_INLINE_OPT QData Vhdmi_driver::_change_request(Vhdmi_driver__Syms* __restrict
     // Body
     // Change detection
     QData __req = false;  // Logically a bool
-    __req |= ((vlTOPp->hdmi_driver__DOT__clk_50k ^ vlTOPp->__Vchglast__TOP__hdmi_driver__DOT__clk_50k)
-	 | (vlTOPp->hdmi_driver__DOT__done ^ vlTOPp->__Vchglast__TOP__hdmi_driver__DOT__done));
-    VL_DEBUG_IF( if(__req && ((vlTOPp->hdmi_driver__DOT__clk_50k ^ vlTOPp->__Vchglast__TOP__hdmi_driver__DOT__clk_50k))) VL_DBG_MSGF("        CHANGE: hdmi_driver.v:23: hdmi_driver.clk_50k\n"); );
-    VL_DEBUG_IF( if(__req && ((vlTOPp->hdmi_driver__DOT__done ^ vlTOPp->__Vchglast__TOP__hdmi_driver__DOT__done))) VL_DBG_MSGF("        CHANGE: hdmi_driver.v:37: hdmi_driver.done\n"); );
+    __req |= ((vlTOPp->clk_25 ^ vlTOPp->__Vchglast__TOP__clk_25)
+	 | (vlTOPp->hdmi_driver__DOT__done ^ vlTOPp->__Vchglast__TOP__hdmi_driver__DOT__done)
+	 | (vlTOPp->hdmi_driver__DOT__mI2C_CTRL_CLK ^ vlTOPp->__Vchglast__TOP__hdmi_driver__DOT__mI2C_CTRL_CLK));
+    VL_DEBUG_IF( if(__req && ((vlTOPp->clk_25 ^ vlTOPp->__Vchglast__TOP__clk_25))) VL_DBG_MSGF("        CHANGE: hdmi_driver.v:11: clk_25\n"); );
+    VL_DEBUG_IF( if(__req && ((vlTOPp->hdmi_driver__DOT__done ^ vlTOPp->__Vchglast__TOP__hdmi_driver__DOT__done))) VL_DBG_MSGF("        CHANGE: hdmi_driver.v:28: hdmi_driver.done\n"); );
+    VL_DEBUG_IF( if(__req && ((vlTOPp->hdmi_driver__DOT__mI2C_CTRL_CLK ^ vlTOPp->__Vchglast__TOP__hdmi_driver__DOT__mI2C_CTRL_CLK))) VL_DBG_MSGF("        CHANGE: hdmi_driver.v:51: hdmi_driver.mI2C_CTRL_CLK\n"); );
     // Final
-    vlTOPp->__Vchglast__TOP__hdmi_driver__DOT__clk_50k 
-	= vlTOPp->hdmi_driver__DOT__clk_50k;
+    vlTOPp->__Vchglast__TOP__clk_25 = vlTOPp->clk_25;
     vlTOPp->__Vchglast__TOP__hdmi_driver__DOT__done 
 	= vlTOPp->hdmi_driver__DOT__done;
+    vlTOPp->__Vchglast__TOP__hdmi_driver__DOT__mI2C_CTRL_CLK 
+	= vlTOPp->hdmi_driver__DOT__mI2C_CTRL_CLK;
     return __req;
 }
 
@@ -534,17 +596,21 @@ VL_INLINE_OPT QData Vhdmi_driver::_change_request(Vhdmi_driver__Syms* __restrict
 void Vhdmi_driver::_eval_debug_assertions() {
     VL_DEBUG_IF(VL_DBG_MSGF("+    Vhdmi_driver::_eval_debug_assertions\n"); );
     // Body
-    if (VL_UNLIKELY((clk_25 & 0xfeU))) {
-	Verilated::overWidthError("clk_25");}
+    if (VL_UNLIKELY((clk_50 & 0xfeU))) {
+	Verilated::overWidthError("clk_50");}
     if (VL_UNLIKELY((reset_al & 0xfeU))) {
 	Verilated::overWidthError("reset_al");}
+    if (VL_UNLIKELY((sda & 0xfeU))) {
+	Verilated::overWidthError("sda");}
+    if (VL_UNLIKELY((HDMI_INT & 0xfeU))) {
+	Verilated::overWidthError("HDMI_INT");}
 }
 #endif // VL_DEBUG
 
 void Vhdmi_driver::_ctor_var_reset() {
     VL_DEBUG_IF(VL_DBG_MSGF("+    Vhdmi_driver::_ctor_var_reset\n"); );
     // Body
-    clk_25 = VL_RAND_RESET_I(1);
+    clk_50 = VL_RAND_RESET_I(1);
     reset_al = VL_RAND_RESET_I(1);
     H_sync = VL_RAND_RESET_I(1);
     V_sync = VL_RAND_RESET_I(1);
@@ -554,16 +620,21 @@ void Vhdmi_driver::_ctor_var_reset() {
     GREEN = VL_RAND_RESET_I(8);
     BLUE = VL_RAND_RESET_I(8);
     Draw_enable = VL_RAND_RESET_I(1);
-    sda = VL_RAND_RESET_I(1);
     scl = VL_RAND_RESET_I(1);
+    sda = VL_RAND_RESET_I(1);
     fail = VL_RAND_RESET_I(1);
     rst = VL_RAND_RESET_I(1);
+    clk_25 = VL_RAND_RESET_I(1);
+    HDMI_INT = VL_RAND_RESET_I(1);
     hdmi_driver__DOT__data = VL_RAND_RESET_I(8);
     hdmi_driver__DOT__byte_lut = VL_RAND_RESET_I(8);
     hdmi_driver__DOT__byte_lut_next = VL_RAND_RESET_I(8);
     hdmi_driver__DOT__clk_divide = VL_RAND_RESET_I(10);
     hdmi_driver__DOT__clk_50k = VL_RAND_RESET_I(1);
     hdmi_driver__DOT__done = VL_RAND_RESET_I(1);
+    hdmi_driver__DOT__mI2C_CLK_DIV = VL_RAND_RESET_I(16);
+    hdmi_driver__DOT__mI2C_CTRL_CLK = VL_RAND_RESET_I(1);
+    hdmi_driver__DOT__sda__out__out0 = VL_RAND_RESET_I(1);
     hdmi_driver__DOT__I2C_0__DOT__counter = VL_RAND_RESET_I(4);
     hdmi_driver__DOT__I2C_0__DOT__message = VL_RAND_RESET_I(8);
     hdmi_driver__DOT__I2C_0__DOT__state = VL_RAND_RESET_I(5);
@@ -574,66 +645,66 @@ void Vhdmi_driver::_ctor_var_reset() {
     __Vtableidx1 = VL_RAND_RESET_I(8);
     __Vtable1_hdmi_driver__DOT__data[0] = 0x98U;
     __Vtable1_hdmi_driver__DOT__data[1] = 3U;
-    __Vtable1_hdmi_driver__DOT__data[2] = 0x9aU;
-    __Vtable1_hdmi_driver__DOT__data[3] = 0xe0U;
-    __Vtable1_hdmi_driver__DOT__data[4] = 0x9cU;
-    __Vtable1_hdmi_driver__DOT__data[5] = 0x30U;
-    __Vtable1_hdmi_driver__DOT__data[6] = 0x9dU;
-    __Vtable1_hdmi_driver__DOT__data[7] = 1U;
-    __Vtable1_hdmi_driver__DOT__data[8] = 0xa2U;
-    __Vtable1_hdmi_driver__DOT__data[9] = 0xa4U;
-    __Vtable1_hdmi_driver__DOT__data[10] = 0xa3U;
-    __Vtable1_hdmi_driver__DOT__data[11] = 0xa4U;
-    __Vtable1_hdmi_driver__DOT__data[12] = 0xe0U;
-    __Vtable1_hdmi_driver__DOT__data[13] = 0xd0U;
-    __Vtable1_hdmi_driver__DOT__data[14] = 0xf9U;
-    __Vtable1_hdmi_driver__DOT__data[15] = 0U;
-    __Vtable1_hdmi_driver__DOT__data[16] = 0x15U;
-    __Vtable1_hdmi_driver__DOT__data[17] = 0U;
-    __Vtable1_hdmi_driver__DOT__data[18] = 0x16U;
-    __Vtable1_hdmi_driver__DOT__data[19] = 0x30U;
-    __Vtable1_hdmi_driver__DOT__data[20] = 0x17U;
-    __Vtable1_hdmi_driver__DOT__data[21] = 0U;
-    __Vtable1_hdmi_driver__DOT__data[22] = 0x18U;
-    __Vtable1_hdmi_driver__DOT__data[23] = 0x46U;
-    __Vtable1_hdmi_driver__DOT__data[24] = 0xafU;
-    __Vtable1_hdmi_driver__DOT__data[25] = 0x16U;
-    __Vtable1_hdmi_driver__DOT__data[26] = 0U;
-    __Vtable1_hdmi_driver__DOT__data[27] = 0U;
-    __Vtable1_hdmi_driver__DOT__data[28] = 0U;
-    __Vtable1_hdmi_driver__DOT__data[29] = 0U;
-    __Vtable1_hdmi_driver__DOT__data[30] = 0U;
-    __Vtable1_hdmi_driver__DOT__data[31] = 0U;
-    __Vtable1_hdmi_driver__DOT__data[32] = 0U;
-    __Vtable1_hdmi_driver__DOT__data[33] = 0U;
-    __Vtable1_hdmi_driver__DOT__data[34] = 0U;
-    __Vtable1_hdmi_driver__DOT__data[35] = 0U;
-    __Vtable1_hdmi_driver__DOT__data[36] = 0U;
-    __Vtable1_hdmi_driver__DOT__data[37] = 0U;
-    __Vtable1_hdmi_driver__DOT__data[38] = 0U;
-    __Vtable1_hdmi_driver__DOT__data[39] = 0U;
-    __Vtable1_hdmi_driver__DOT__data[40] = 0U;
-    __Vtable1_hdmi_driver__DOT__data[41] = 0U;
-    __Vtable1_hdmi_driver__DOT__data[42] = 0U;
-    __Vtable1_hdmi_driver__DOT__data[43] = 0U;
-    __Vtable1_hdmi_driver__DOT__data[44] = 0U;
-    __Vtable1_hdmi_driver__DOT__data[45] = 0U;
-    __Vtable1_hdmi_driver__DOT__data[46] = 0U;
-    __Vtable1_hdmi_driver__DOT__data[47] = 0U;
-    __Vtable1_hdmi_driver__DOT__data[48] = 0U;
-    __Vtable1_hdmi_driver__DOT__data[49] = 0U;
-    __Vtable1_hdmi_driver__DOT__data[50] = 0U;
-    __Vtable1_hdmi_driver__DOT__data[51] = 0U;
-    __Vtable1_hdmi_driver__DOT__data[52] = 0U;
-    __Vtable1_hdmi_driver__DOT__data[53] = 0U;
-    __Vtable1_hdmi_driver__DOT__data[54] = 0U;
-    __Vtable1_hdmi_driver__DOT__data[55] = 0U;
-    __Vtable1_hdmi_driver__DOT__data[56] = 0U;
-    __Vtable1_hdmi_driver__DOT__data[57] = 0U;
-    __Vtable1_hdmi_driver__DOT__data[58] = 0U;
-    __Vtable1_hdmi_driver__DOT__data[59] = 0U;
-    __Vtable1_hdmi_driver__DOT__data[60] = 0U;
-    __Vtable1_hdmi_driver__DOT__data[61] = 0U;
+    __Vtable1_hdmi_driver__DOT__data[2] = 1U;
+    __Vtable1_hdmi_driver__DOT__data[3] = 0U;
+    __Vtable1_hdmi_driver__DOT__data[4] = 2U;
+    __Vtable1_hdmi_driver__DOT__data[5] = 0x18U;
+    __Vtable1_hdmi_driver__DOT__data[6] = 3U;
+    __Vtable1_hdmi_driver__DOT__data[7] = 0U;
+    __Vtable1_hdmi_driver__DOT__data[8] = 0x14U;
+    __Vtable1_hdmi_driver__DOT__data[9] = 0x70U;
+    __Vtable1_hdmi_driver__DOT__data[10] = 0x15U;
+    __Vtable1_hdmi_driver__DOT__data[11] = 0x20U;
+    __Vtable1_hdmi_driver__DOT__data[12] = 0x16U;
+    __Vtable1_hdmi_driver__DOT__data[13] = 0x30U;
+    __Vtable1_hdmi_driver__DOT__data[14] = 0x18U;
+    __Vtable1_hdmi_driver__DOT__data[15] = 0x46U;
+    __Vtable1_hdmi_driver__DOT__data[16] = 0x40U;
+    __Vtable1_hdmi_driver__DOT__data[17] = 0x80U;
+    __Vtable1_hdmi_driver__DOT__data[18] = 0x41U;
+    __Vtable1_hdmi_driver__DOT__data[19] = 0x10U;
+    __Vtable1_hdmi_driver__DOT__data[20] = 0x49U;
+    __Vtable1_hdmi_driver__DOT__data[21] = 0xa8U;
+    __Vtable1_hdmi_driver__DOT__data[22] = 0x55U;
+    __Vtable1_hdmi_driver__DOT__data[23] = 0x10U;
+    __Vtable1_hdmi_driver__DOT__data[24] = 0x56U;
+    __Vtable1_hdmi_driver__DOT__data[25] = 8U;
+    __Vtable1_hdmi_driver__DOT__data[26] = 0x96U;
+    __Vtable1_hdmi_driver__DOT__data[27] = 0xf6U;
+    __Vtable1_hdmi_driver__DOT__data[28] = 0x73U;
+    __Vtable1_hdmi_driver__DOT__data[29] = 7U;
+    __Vtable1_hdmi_driver__DOT__data[30] = 0x76U;
+    __Vtable1_hdmi_driver__DOT__data[31] = 0x1fU;
+    __Vtable1_hdmi_driver__DOT__data[32] = 0x98U;
+    __Vtable1_hdmi_driver__DOT__data[33] = 3U;
+    __Vtable1_hdmi_driver__DOT__data[34] = 0x99U;
+    __Vtable1_hdmi_driver__DOT__data[35] = 2U;
+    __Vtable1_hdmi_driver__DOT__data[36] = 0x9aU;
+    __Vtable1_hdmi_driver__DOT__data[37] = 0xe0U;
+    __Vtable1_hdmi_driver__DOT__data[38] = 0x9cU;
+    __Vtable1_hdmi_driver__DOT__data[39] = 0x30U;
+    __Vtable1_hdmi_driver__DOT__data[40] = 0x9dU;
+    __Vtable1_hdmi_driver__DOT__data[41] = 0x61U;
+    __Vtable1_hdmi_driver__DOT__data[42] = 0xa2U;
+    __Vtable1_hdmi_driver__DOT__data[43] = 0xa4U;
+    __Vtable1_hdmi_driver__DOT__data[44] = 0xa3U;
+    __Vtable1_hdmi_driver__DOT__data[45] = 0xa4U;
+    __Vtable1_hdmi_driver__DOT__data[46] = 0xa5U;
+    __Vtable1_hdmi_driver__DOT__data[47] = 4U;
+    __Vtable1_hdmi_driver__DOT__data[48] = 0xabU;
+    __Vtable1_hdmi_driver__DOT__data[49] = 0x40U;
+    __Vtable1_hdmi_driver__DOT__data[50] = 0xafU;
+    __Vtable1_hdmi_driver__DOT__data[51] = 0x16U;
+    __Vtable1_hdmi_driver__DOT__data[52] = 0xbaU;
+    __Vtable1_hdmi_driver__DOT__data[53] = 0x60U;
+    __Vtable1_hdmi_driver__DOT__data[54] = 0xd1U;
+    __Vtable1_hdmi_driver__DOT__data[55] = 0xffU;
+    __Vtable1_hdmi_driver__DOT__data[56] = 0xdeU;
+    __Vtable1_hdmi_driver__DOT__data[57] = 0x10U;
+    __Vtable1_hdmi_driver__DOT__data[58] = 0xe4U;
+    __Vtable1_hdmi_driver__DOT__data[59] = 0x60U;
+    __Vtable1_hdmi_driver__DOT__data[60] = 0xfaU;
+    __Vtable1_hdmi_driver__DOT__data[61] = 0x7dU;
     __Vtable1_hdmi_driver__DOT__data[62] = 0U;
     __Vtable1_hdmi_driver__DOT__data[63] = 0U;
     __Vtable1_hdmi_driver__DOT__data[64] = 0U;
@@ -828,10 +899,12 @@ void Vhdmi_driver::_ctor_var_reset() {
     __Vtable1_hdmi_driver__DOT__data[253] = 0U;
     __Vtable1_hdmi_driver__DOT__data[254] = 0U;
     __Vtable1_hdmi_driver__DOT__data[255] = 0U;
-    __Vdly__hdmi_driver__DOT__byte_lut = VL_RAND_RESET_I(8);
-    __VinpClk__TOP__hdmi_driver__DOT__clk_50k = VL_RAND_RESET_I(1);
+    __Vdly__hdmi_driver__DOT__byte_lut_next = VL_RAND_RESET_I(8);
+    __VinpClk__TOP__clk_25 = VL_RAND_RESET_I(1);
+    __VinpClk__TOP__hdmi_driver__DOT__mI2C_CTRL_CLK = VL_RAND_RESET_I(1);
     __VinpClk__TOP__hdmi_driver__DOT__done = VL_RAND_RESET_I(1);
-    __Vchglast__TOP__hdmi_driver__DOT__clk_50k = VL_RAND_RESET_I(1);
+    __Vchglast__TOP__clk_25 = VL_RAND_RESET_I(1);
     __Vchglast__TOP__hdmi_driver__DOT__done = VL_RAND_RESET_I(1);
+    __Vchglast__TOP__hdmi_driver__DOT__mI2C_CTRL_CLK = VL_RAND_RESET_I(1);
     __Vm_traceActivity = VL_RAND_RESET_I(32);
 }

@@ -6,7 +6,7 @@ JedecChain;
 	P ActionCode(Ign)
 		Device PartName(SOCVHPS) MfrSpec(OpMask(0));
 	P ActionCode(Cfg)
-		Device PartName(5CSEBA6U23) Path("/home/john/code/quartus_work/hdmi_driver/output_files/") File("hdmi_driver.sof") MfrSpec(OpMask(1));
+		Device PartName(5CSEBA6U23) Path("/home/john/code/hdmi_driver/output_files/") File("hdmi_driver.sof") MfrSpec(OpMask(1));
 
 ChainEnd;
 

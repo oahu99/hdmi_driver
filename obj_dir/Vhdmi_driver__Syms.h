@@ -1,7 +1,8 @@
 // Verilated -*- C++ -*-
 // DESCRIPTION: Verilator output: Symbol table internal header
 //
-// Internal details; most calling programs do not need this header
+// Internal details; most calling programs do not need this header,
+// unless using verilator public meta comments.
 
 #ifndef _Vhdmi_driver__Syms_H_
 #define _Vhdmi_driver__Syms_H_

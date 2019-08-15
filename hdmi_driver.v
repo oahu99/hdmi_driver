@@ -4,10 +4,13 @@ module hdmi_driver (
 	output reg [9:0] CountX, CountY,
 	output wire [7:0] RED, GREEN, BLUE,
 	output reg Draw_enable,
-	output wire sda, scl, // signals from i2c driver
+	output wire scl, // signals from i2c driver
+	output wire sda,
 	output wire fail, // flag for failed transmission
 	output reg rst, // test reset for ah/al
-	output reg clk_25
+	output reg clk_25,
+	input wire HDMI_INT,
+	output reg mI2C_CTRL_CLK
 );
 
 // blanking signals
@@ -23,9 +26,10 @@ wire read_write = 0; // always write to i2c bus
 reg start; // starts i2c tx state machine
 reg clk_50k; // i2c clock
 wire reset;
+wire done;
 	
 i2c_master_top I2C_0 (
-	.clk_50k			(clk_50k),
+	.clk_50k			(mI2C_CTRL_CLK),
 	.reset			(reset),
 	.start			(start),
 	.sda				(sda),
@@ -43,27 +47,53 @@ reg_lut LUT0 (
 	.data_byte		(data)
 );
 
-assign GREEN = CountX;
-assign BLUE = CountY;
+//	Clock Setting
+reg	[15:0]	mI2C_CLK_DIV;
+// reg			mI2C_CTRL_CLK;
+parameter	CLK_Freq	=	50000000;	//	50	MHz
+parameter	I2C_Freq	=	20000;		//	20	KHz
+
+always@(posedge clk_50) // i2c clock gen
+begin
+	if(reset)
+	begin
+		mI2C_CTRL_CLK	<=	0;
+		mI2C_CLK_DIV	<=	0;
+	end
+	else
+	begin
+		if( mI2C_CLK_DIV	< (CLK_Freq/I2C_Freq) )
+			mI2C_CLK_DIV	<=	mI2C_CLK_DIV+1'b1;
+		else
+		begin
+			mI2C_CLK_DIV	<=	0;
+			mI2C_CTRL_CLK	<=	~mI2C_CTRL_CLK;
+		end
+	end
+end
+
+assign GREEN = CountX[7:0];
+assign BLUE = CountY[7:0];
+assign RED = CountY[7:0]/2;
 assign reset = ~reset_al;
 
 
 always @ (*) begin
 
-	start = (byte_lut >= 25) ? 0 : 1;
-	slave_address = 7'h7A; // address for main register map
+	start = 1;//(byte_lut >= 64) ? 0 : 1;
+	slave_address = 7'h72; // address for main register map
 	
 end
 
-always @ (posedge clk_50) begin
+always @ (posedge clk_50) begin // vga clock divider
 	clk_25 <= (rst) ? 0 : ~clk_25;
 end
 
-always @ (posedge done) begin
+always @ (posedge done) begin // increment through config options
 byte_lut_next <= byte_lut + 1;
 end
 	
-always @ (posedge clk_25) begin // state machine for ADV7513 initialization
+always @ (posedge clk_50) begin // state machine for ADV7513 initialization
 
 	rst <= reset;
 	
@@ -78,8 +108,9 @@ always @ (posedge clk_25) begin // state machine for ADV7513 initialization
 	end
 	else
 		clk_divide <= clk_divide + 1;
-	
-	byte_lut <= (reset) ? 0 : byte_lut_next; // state machine for LUT
+
+		byte_lut <= (byte_lut == 62) ? 0 : byte_lut_next; // state machine for LUT
+		
 end
 
 always @ (posedge clk_25) begin // counter loop
