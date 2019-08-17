@@ -18,6 +18,8 @@ incremental_db
 simulation
 testbench
 timing
+obj_dir # verilator output directory
+output_files
 
 # ignore Quartus II generated files
 *_generation_script*
