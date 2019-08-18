@@ -1,6 +1,6 @@
 #!/bin/sh
 
-verilator -Wall --trace --cc hdmi_driver.v --exe hdmi_test.cpp 
+verilator -Wall --trace --cc hdmi_driver.v --exe hdmi_test_template.cpp 
 make -j32 -C obj_dir/ -f Vhdmi_driver.mk Vhdmi_driver
 cd obj_dir/
 ./Vhdmi_driver

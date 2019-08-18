@@ -1,7 +1,6 @@
 #include <stdlib.h>
 #include "Vhdmi_driver.h"
-#include "verilated.h"
-#include "verilated_vcd_c.h"
+#include <testbench_template.h>
 
 int main(){
 
