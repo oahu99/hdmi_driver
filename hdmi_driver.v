@@ -1,45 +1,45 @@
 module hdmi_driver (
 	input clk_50, reset_al,
-	output wire H_sync, V_sync,
-	output reg [9:0] CountX, CountY,
-	output wire [7:0] RED, GREEN, BLUE,
-	output reg Draw_enable,
-	output wire scl, // signals from i2c driver
-	output wire sda,
-	output wire fail, // flag for failed transmission
-	output reg rst, // test reset for ah/al
-	output reg clk_25,
-	input wire HDMI_INT,
-	output reg mI2C_CTRL_CLK
+	output 	wire H_sync, V_sync,
+	output 	reg [9:0] CountX, CountY,
+	output 	wire [7:0] RED, GREEN, BLUE,
+	output 	reg Draw_enable,
+	output 	wire scl, // signals from i2c driver
+	output 	wire sda,
+	output 	wire fail, // flag for failed transmission
+	output	reg rst, // test reset for ah/al
+	output 	reg clk_25,
+	input 	wire HDMI_INT,
+	output 	reg mI2C_CTRL_CLK
 );
 
 // blanking signals
 assign H_sync = (CountX>=656) && (CountX<752);
 assign V_sync = (CountY>=490) && (CountY<492);
 
-reg [6:0] slave_address; // address for i2c transmission
-wire [7:0] data; // data to send over i2c bus
-reg [2:0] byte_num = 2; // number of data bytes per transmission
-reg [7:0] byte_lut, byte_lut_next; // LUT for bytes to send to i2c driver
-reg [9:0] clk_divide; // clock divider to generate i2c clock
-wire read_write = 0; // always write to i2c bus
-reg start; // starts i2c tx state machine
-reg clk_50k; // i2c clock
-wire reset;
-wire done;
+wire 	[6:0] 	slave_address; // address for i2c transmission
+wire 	[7:0] 	data; // data to send over i2c bus
+reg 	[2:0] 	byte_num = 2; // number of data bytes per transmission
+reg 	[7:0] 	byte_lut, byte_lut_next; // LUT for bytes to send to i2c driver
+reg 	[9:0] 	clk_divide; // clock divider to generate i2c clock
+wire 			read_write = 0; // always write to i2c bus
+wire 			start; // starts i2c tx state machine
+reg 			clk_50k; // i2c clock
+wire 			reset;
+wire 			done;
 	
 i2c_master_top I2C_0 (
-	.clk_50k			(mI2C_CTRL_CLK),
+	.clk_50k		(mI2C_CTRL_CLK),
 	.reset			(reset),
 	.start			(start),
-	.sda				(sda),
-	.scl				(scl),
+	.sda			(sda),
+	.scl			(scl),
 	.slave_address	(slave_address),
 	.read_write		(read_write),
-	.data				(data),
+	.data			(data),
 	.byte_num		(byte_num),
-	.fail				(fail),
-	.done				(done)
+	.fail			(fail),
+	.done			(done)
 	);
 	
 reg_lut LUT0 (
@@ -62,7 +62,7 @@ begin
 	end
 	else
 	begin
-		if( mI2C_CLK_DIV	< (CLK_Freq/I2C_Freq) )
+		if( mI2C_CLK_DIV	<	(CLK_Freq/I2C_Freq) )
 			mI2C_CLK_DIV	<=	mI2C_CLK_DIV+1'b1;
 		else
 		begin
@@ -77,13 +77,8 @@ assign BLUE = CountY[7:0];
 assign RED = CountY[7:0]/2;
 assign reset = ~reset_al;
 
-
-always @ (*) begin
-
-	start = 1;//(byte_lut >= 64) ? 0 : 1;
-	slave_address = 7'h72; // address for main register map
-	
-end
+assign start = 1;//(byte_lut >= 64) ? 0 : 1;
+assign slave_address = 7'h72; // address for main register map
 
 always @ (posedge clk_50) begin // vga clock divider
 	clk_25 <= (rst) ? 0 : ~clk_25;
